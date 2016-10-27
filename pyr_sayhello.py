@@ -2,7 +2,7 @@ from pyramid.config import Configurator
 from pyramid.response import Response
 
 def hello_world(request):
-    return Response('Hello world!')
+    return Response('Hello world, I am Pyramid!')
 
 config = Configurator()
 config.add_route('hello', '/')
