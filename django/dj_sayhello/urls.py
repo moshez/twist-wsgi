@@ -1,4 +1,4 @@
-"""sayhello URL Configuration
+"""dj_sayhello URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.10/topics/http/urls/
@@ -17,5 +17,5 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^', include('sayhello.hellosayer.urls')),
+    url(r'^', include('dj_sayhello.hellosayer.urls')),
 ]

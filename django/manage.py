@@ -4,7 +4,7 @@ import subprocess
 import sys
 
 if __name__ == "__main__":
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sayhello.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dj_sayhello.settings")
     if sys.argv[1] == 'runserver':
         wsgi = __import__(os.environ['DJANGO_SETTINGS_MODULE']).settings.WSGI_APPLICATION
         env = os.environ.copy()
