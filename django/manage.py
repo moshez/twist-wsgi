@@ -6,7 +6,7 @@ import sys
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sayhello.settings")
     if sys.argv[1] == 'runserver':
-        wsgi = __import__('sayhello.settings').settings.WSGI_APPLICATION
+        wsgi = __import__(os.environ['DJANGO_SETTINGS_MODULE']).settings.WSGI_APPLICATION
         env = os.environ.copy()
         env['PYTHONPATH'] = os.getcwd()
         subprocess.check_call(["twist", "web", "--wsgi", wsgi] + sys.argv[2:],
