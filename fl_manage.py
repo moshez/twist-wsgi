@@ -5,6 +5,6 @@ import sys
 
 env = os.environ.copy()
 env['PYTHONPATH'] = os.getcwd()
-WSGI = 'sayhello.app'
+WSGI = 'fl_sayhello.app'
 subprocess.check_call(["twist", "web", "--wsgi", WSGI] + sys.argv[1:],
                       env=env)
