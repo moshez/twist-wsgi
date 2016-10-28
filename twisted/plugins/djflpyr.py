@@ -16,6 +16,7 @@ port_assignments = {
     'dj_sayhello.wsgi.application': 'tcp:8081',
     'fl_sayhello.app': 'tcp:8082',
     'pyr_sayhello.app': 'tcp:8083',
+    'bo_sayhello.app': 'tcp:8084',
 }
 
 def update(fle, reactor):
@@ -39,7 +40,7 @@ class ServiceMaker(object):
             strports.service(port, site).setServiceParent(s)
         root = static.File('data')
         site = server.Site(root)
-        strports.service('tcp:8084', site).setServiceParent(s)
+        strports.service('tcp:8085', site).setServiceParent(s)
         fle = filepath.FilePath('data/time.txt')
         ts = internet.TimerService(1, update, fle, reactor)
         ts.setServiceParent(s)
