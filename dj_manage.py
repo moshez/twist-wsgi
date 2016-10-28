@@ -11,6 +11,7 @@ if __name__ == "__main__":
         env['PYTHONPATH'] = os.getcwd()
         subprocess.check_call(["twist", "web", "--wsgi", wsgi] + sys.argv[2:],
                               env=env)
+        sys.exit()
     try:
         from django.core.management import execute_from_command_line
     except ImportError:
