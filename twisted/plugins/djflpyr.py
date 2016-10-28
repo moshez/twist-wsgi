@@ -1,9 +1,11 @@
+import time
+
 from zope import interface
 
-from twisted.python import usage, reflect, threadpool
+from twisted.python import usage, reflect, threadpool, filepath
 from twisted import plugin
-from twisted.application import service, strports
-from twisted.web import wsgi, server
+from twisted.application import service, strports, internet
+from twisted.web import wsgi, server, static
 from twisted.internet import reactor
 
 
@@ -15,6 +17,9 @@ port_assignments = {
     'fl_sayhello.app': 'tcp:8082',
     'pyr_sayhello.app': 'tcp:8083',
 }
+
+def update(fle, reactor):
+    fle.setContent(time.ctime(reactor.seconds()))
 
 @interface.implementer(service.IServiceMaker, plugin.IPlugin)
 class ServiceMaker(object):
@@ -32,6 +37,12 @@ class ServiceMaker(object):
             root = wsgi.WSGIResource(reactor, pool, application)
             site = server.Site(root)
             strports.service(port, site).setServiceParent(s)
+        root = static.File('data')
+        site = server.Site(root)
+        strports.service('tcp:8084', site).setServiceParent(s)
+        fle = filepath.FilePath('data/time.txt')
+        ts = internet.TimerService(1, update, fle, reactor)
+        ts.setServiceParent(s)
         return s
 
 serviceMaker = ServiceMaker()
