@@ -1,4 +1,5 @@
 db.sqlite3
+dropin.cache
 *.pyc
 /certs/client.key
 /build
