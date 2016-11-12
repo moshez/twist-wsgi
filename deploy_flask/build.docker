@@ -1,0 +1,4 @@
+FROM python:2.7.12
+RUN virtualenv /buildenv
+RUN pip install pex
+ENTRYPOINT ["bash"]
