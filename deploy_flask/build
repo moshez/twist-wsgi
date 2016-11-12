@@ -1,0 +1,4 @@
+#!/bin/sh
+docker build -t sayhello-build -f build.docker .
+docker run --rm -it -v $(pwd):/mnt/src sayhello-build /mnt/src -o /mnt/src/twist.pex -m twisted.application.twist._twist:Twist.main
+docker build -t moshez/sayhello  -f run.docker .
