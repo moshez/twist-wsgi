@@ -7,7 +7,7 @@ setuptools.setup(
     author='Moshe Zadka',
     author_email='zadka.moshe@gmail.com',
     packages=setuptools.find_packages(where='src') + ['twisted.plugins'],
-    install_requires=['Twisted', 'flask', 'setuptools'],
+    install_requires=['Twisted', 'flask', 'setuptools', 'txacme'],
     package_dir={'': 'src'},
     package_data={'sayhello': ['data/index.html']},
 )

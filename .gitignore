@@ -4,3 +4,5 @@ dropin.cache
 /certs/client.key
 /build
 /data/time.txt
+*.pex
+*.egg-info
