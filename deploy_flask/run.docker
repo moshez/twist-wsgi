@@ -1,4 +1,4 @@
 FROM python:2.7.12
 COPY twist.pex /
 RUN /twist.pex 2>/dev/null || true; mkdir -p /srv/www/certs
-ENTRYPOINT ["/twist.pex", "sayhello", "--port", "lets:/srv/www/certs:tcp:443"]
+ENTRYPOINT ["/twist.pex", "sayhello", "--port", "le:/srv/www/certs:tcp:443"]
