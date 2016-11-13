@@ -1,5 +1,7 @@
 from __future__ import absolute_import
 
+import os
+
 import pkg_resources
 
 from zope import interface
@@ -13,9 +15,22 @@ from twisted.internet import reactor
 import sayhello.wsgi
 
 class Options(usage.Options):
-    optParameters = [["port", "p", None, "strports description of the port to "
+    optParameters = [["port", None, None, "strports description of the port to "
                       "start the server on."],
+                     ["empty-file", None, None, "create empty file with this name"],
                     ]
+
+class EmptyFileMaker(service.Service):
+
+    def __init__(self, fname):
+        self.fname = fname
+
+    def startService(self):
+        if os.path.exists(self.fname):
+            return
+        with open(self.fname, 'a') as fp:
+            pass
+        service.Service.startService(self)
 
 @interface.implementer(service.IServiceMaker, plugin.IPlugin)
 class ServiceMaker(object):
@@ -24,6 +39,7 @@ class ServiceMaker(object):
     options = Options
 
     def makeService(self, options):
+        ret = service.MultiService()
         application = sayhello.wsgi.app
         pool = threadpool.ThreadPool()
         reactor.callWhenRunning(pool.start)
@@ -35,7 +51,10 @@ class ServiceMaker(object):
         root.putChild('', index)
         root.putChild('hello', wsgiresource)
         site = server.Site(root)
-        ret = strports.service(options['port'], site)
+        strports.service(options['port'], site).setServiceParent(ret)
+        if options['empty-file'] != None:
+            ef = EmptyFileMaker(options['empty-file'])
+            ef.setServiceParent(ret)
         return ret
 
 serviceMaker = ServiceMaker()
